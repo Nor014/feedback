@@ -98,7 +98,7 @@
 	<script src="https://use.fontawesome.com/70378a66b8.js"></script>
 	<script>
 
-		let forms = document.getElementsByTagName('input');
+		let inputs = document.getElementsByTagName('input');
 		let buttons = document.getElementsByClassName('button-contact');
 		let textarea = document.getElementsByName('message')[0];
 
@@ -109,29 +109,29 @@
 
 		function onInput() {
 			document.getElementById(this.name).value = this.value;
-			this.value ? textareaValue = true : textareaValue = false
+			textareaValue = this.value ? true : false;
 			status && textareaValue ? document.querySelector("button[type='submit']").disabled = false :
 				document.querySelector("button[type='submit']").disabled = true
 		}
 
-		for (let form of forms) {
-			form.addEventListener('change', onChange);
-			form.addEventListener('keypress', onKey);
+		for (let input of inputs) {
+			input.addEventListener('change', onChange);
+			input.addEventListener('keypress', onKey);
 		}
 
 		function onChange() {
-			this.value ? this.checked = true : this.checked = false;
+			this.checked = this.value ? true : false;
 			document.getElementById(this.name).value = this.value;
 
 			let counter = 0;
 
-			Array.from(forms).forEach(function (el) {
+			Array.from(inputs).forEach(function (el) {
 				if (el.checked) counter++
 			})
 
-			counter === forms.length ? status = true : status = false;
-			
-			counter === forms.length && textareaValue ? document.querySelector("button[type='submit']").disabled = false :
+			status = counter === inputs.length ? true : false;
+
+			counter === inputs.length && textareaValue ? document.querySelector("button[type='submit']").disabled = false :
 				document.querySelector("button[type='submit']").disabled = true
 
 		}
